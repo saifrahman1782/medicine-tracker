@@ -25,8 +25,11 @@
     "@capacitor/keyboard": "4.1.1",
     "@capacitor/status-bar": "4.1.1",
     "@ionic/angular": "^6.1.9",
+    "ionic2-calendar": "^1.0.1",
+    "ionic6-calendar": "^1.0.1",
     "ionicons": "^6.0.3",
     "rxjs": "~7.5.0",
+    "swiper": "^9.1.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
