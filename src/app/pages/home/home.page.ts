@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar';
-import { CalendarMode, Step } from 'ionic2-calendar';
+import { CalendarMode, QueryMode, Step } from 'ionic2-calendar';
 
 @Component({
   selector: 'app-home',
