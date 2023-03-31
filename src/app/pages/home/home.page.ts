@@ -226,4 +226,12 @@ export class HomePage  {
     current.setHours(0, 0, 0);
     return date < current;
   };
+
+  next() {
+    this.myCalendar.slideNext();
+  }
+
+  back() {
+    this.myCalendar.slidePrev();
+  }
 }
