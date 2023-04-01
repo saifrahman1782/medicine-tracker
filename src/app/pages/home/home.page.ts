@@ -69,8 +69,8 @@ export class HomePage  {
     lockSwipeToPrev: true,
     lockSwipeToNext: true,
     lockSwipes: true,
-    startHour: 9,
-    endHour: 16,
+    startHour: 0,
+    endHour: 24,
     sliderOptions: {
       spaceBetween: 10,
     },
