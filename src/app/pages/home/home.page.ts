@@ -1,17 +1,25 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar';
 import { CalendarMode, QueryMode, Step } from 'ionic2-calendar';
+import { LoadingController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage  {
+export class HomePage implements OnInit  {
+
+  showAddEvent: boolean;
   @ViewChild(CalendarComponent) myCalendar!: CalendarComponent;
 
   constructor() {
     this.isToday = false;
+    this.showAddEvent = false;
+  }
+
+  ngOnInit() {
+
   }
 
   eventSource: any = [];
@@ -233,5 +241,9 @@ export class HomePage  {
 
   back() {
     this.myCalendar.slidePrev();
+  }
+
+  showHideForm() {
+    this.showAddEvent = !this.showHideForm
   }
 }

@@ -52,4 +52,11 @@
     (onDayHeaderSelected)="onDayHeaderSelected($event)"
   >
   </calendar>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="showHideForm()">
+      <ion-icon name="add"></ion-icon>
+      <ion-icon name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
