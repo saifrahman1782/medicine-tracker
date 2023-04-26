@@ -1,25 +1,22 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar';
 import { CalendarMode, QueryMode, Step } from 'ionic2-calendar';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit  {
+export class HomePage  {
 
   showAddEvent: boolean;
   @ViewChild(CalendarComponent) myCalendar!: CalendarComponent;
 
-  constructor() {
+  constructor(public modalCtrl: ModalController) {
     this.isToday = false;
     this.showAddEvent = false;
-  }
-
-  ngOnInit() {
-
   }
 
   eventSource: any = [];
@@ -83,6 +80,14 @@ export class HomePage implements OnInit  {
       spaceBetween: 10,
     },
   };
+
+  newEvent = {
+    title:'',
+    description:'',
+    startTime:'',
+    endTime:'',
+    img:'',
+  }
 
   loadEvents() {
     this.eventSource = this.createRandomEvents();
@@ -245,5 +250,12 @@ export class HomePage implements OnInit  {
 
   showHideForm() {
     this.showAddEvent = !this.showHideForm
+    this.newEvent = {
+      title: '',
+      description:'',
+      img:'',
+      startTime: new Date().toISOString(),
+      endTime: new Date().toISOString(),
+    };
   }
 }

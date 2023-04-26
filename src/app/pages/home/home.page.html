@@ -38,6 +38,7 @@
 
 
   <calendar
+    *ngIf="!showAddEvent"
     [eventSource]="eventSource"
     [queryMode]="calendar.queryMode"
     [calendarMode]="calendar.mode"
@@ -55,8 +56,8 @@
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="showHideForm()">
-      <ion-icon name="add"></ion-icon>
-      <ion-icon name="close"></ion-icon>
+      <ion-icon *ngIf="!showAddEvent" name="add"></ion-icon>
+      <ion-icon *ngIf="showAddEvent" name="close"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>
