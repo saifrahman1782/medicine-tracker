@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar';
 import { CalendarMode, QueryMode, Step } from 'ionic2-calendar';
 import { ModalController } from '@ionic/angular';
-import { EventsPage } from 'src/app/events/events.page';
+import { EventsPage } from 'src/app/pages/events/events.page';
 
 
 @Component({
