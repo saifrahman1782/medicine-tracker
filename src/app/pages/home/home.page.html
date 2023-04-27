@@ -35,6 +35,13 @@
 </ion-toolbar>
 
 <ion-content>
+  <div *ngIf="showAddEvent" class="ion-padding">
+    <ion-item>
+      <ion-label><b>Title:</b></ion-label>
+      <ion-input type="text" placeholder="Title" [(ngModel)]="newEvent.title"></ion-input>
+    </ion-item>
+    
+  </div>
 
 
   <calendar

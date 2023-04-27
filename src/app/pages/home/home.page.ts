@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar';
 import { CalendarMode, QueryMode, Step } from 'ionic2-calendar';
 import { ModalController } from '@ionic/angular';
+import { EventsPage } from 'src/app/events/events.page';
 
 
 @Component({
@@ -113,7 +114,12 @@ export class HomePage  {
     );
   }
 
-  onEventSelected(event: any) {
+ async onEventSelected(event: any) {
+  this.newEvent = event;
+  const modal = await this.modalCtrl.create({
+    component: EventsPage,
+    componentProps: event
+  });
     console.log(
       'Event selected:' +
         event.startTime +
@@ -248,8 +254,10 @@ export class HomePage  {
     this.myCalendar.slidePrev();
   }
 
+
+
   showHideForm() {
-    this.showAddEvent = !this.showHideForm
+    this.showAddEvent = !this.showAddEvent;
     this.newEvent = {
       title: '',
       description:'',
