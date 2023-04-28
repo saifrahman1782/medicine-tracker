@@ -13,11 +13,39 @@
     <ion-button (click)="changeMode('month')">Month</ion-button>
     <ion-button (click)="changeMode('week')">Week</ion-button>
     <ion-button (click)="changeMode('day')">Day</ion-button>
-    <ion-button (click)="loadEvents()">Load</ion-button>
+    <ion-button >Load</ion-button>
   </ion-buttons>
 </ion-toolbar>
 
-<ion-toolbar color="tertiary">
+<ion-content>
+  <div *ngIf="showAddEvent" class="ion-padding">
+    <ion-item>
+      <ion-label><b>Title:</b></ion-label>
+      <ion-input type="text" placeholder="Title" [(ngModel)]="newEvent.title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label><b>Description:</b></ion-label>
+      <ion-input type="text" placeholder="Description" [(ngModel)]="newEvent.description"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label><b>Image:</b></ion-label>
+      <ion-input type="text" placeholder="Image" [(ngModel)]="newEvent.img"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label><b>Start Date</b></ion-label>
+      <ion-datetime doneText="OK" cancelText="Cancel" i18n displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D HH:mm"
+        [(ngModel)]="newEvent.startTime" ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label><b>End Date</b></ion-label>
+      <ion-datetime doneText="OK" cancelText="Cancel" displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D HH:mm"
+        [(ngModel)]="newEvent.endTime" ></ion-datetime>
+    </ion-item>
+    <ion-button color="danger" expand="block" (click)="addEvent()">Add Event</ion-button>
+    
+  </div>
+
+  <ion-toolbar *ngIf="!showAddEvent" color="tertiary">
 
     <ion-button slot="start" fill="clear" (click)="back()">
       <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
@@ -33,15 +61,6 @@
     </ion-button>
 
 </ion-toolbar>
-
-<ion-content>
-  <div *ngIf="showAddEvent" class="ion-padding">
-    <ion-item>
-      <ion-label><b>Title:</b></ion-label>
-      <ion-input type="text" placeholder="Title" [(ngModel)]="newEvent.title"></ion-input>
-    </ion-item>
-    
-  </div>
 
 
   <calendar

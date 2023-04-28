@@ -254,7 +254,9 @@ export class HomePage  {
     this.myCalendar.slidePrev();
   }
 
-
+  addEvent(){
+    
+  }
 
   showHideForm() {
     this.showAddEvent = !this.showAddEvent;
