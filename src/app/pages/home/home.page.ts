@@ -1,8 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar';
 import { CalendarMode, QueryMode, Step } from 'ionic2-calendar';
 import { ModalController } from '@ionic/angular';
 import { EventsPage } from 'src/app/pages/events/events.page';
+import { Firestore } from '@angular/fire/firestore';
+
+
 
 
 @Component({
@@ -10,20 +13,20 @@ import { EventsPage } from 'src/app/pages/events/events.page';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage  {
+export class HomePage {
 
   showAddEvent: boolean;
   @ViewChild(CalendarComponent) myCalendar!: CalendarComponent;
 
-  constructor(public modalCtrl: ModalController) {
-    this.isToday = false;
+  constructor(public modalCtrl: ModalController, private db: Firestore) {
     this.showAddEvent = false;
+    this.isToday = false;
   }
 
   eventSource: any = [];
   viewTitle: any;
 
-  isToday: boolean;
+  isToday: boolean
   calendar = {
     mode: 'month' as CalendarMode,
     queryMode: 'local' as QueryMode,
@@ -90,22 +93,6 @@ export class HomePage  {
     img:'',
   }
 
-  loadEvents() {
-    this.eventSource = this.createRandomEvents();
-  }
-
-  loadDynamicEvents() {
-    let startTime = new Date('2023-01-20T03:00:40');
-    let endTime = new Date('2023-01-22T05:39:22');
-
-    this.eventSource.push({
-      title: 'test',
-      startTime: startTime,
-      endTime: endTime,
-      allDay: false,
-    });
-    this.myCalendar.loadEvents();
-  }
 
   onViewTitleChanged(title: string) {
     this.viewTitle = title;
@@ -128,6 +115,7 @@ export class HomePage  {
         ',' +
         event.title
     );
+    return await modal.present();
   }
 
   changeMode(mode: any) {
@@ -155,74 +143,6 @@ export class HomePage  {
     ev.setHours(0, 0, 0, 0);
     this.isToday = today.getTime() === ev.getTime();
     console.log('Currently viewed date: ' + ev);
-  }
-
-  createRandomEvents() {
-    var events = [];
-    for (var i = 0; i < 100; i += 1) {
-      var date = new Date();
-      var eventType = Math.floor(Math.random() * 2);
-      var startDay = Math.floor(Math.random() * 90) - 45;
-      var endDay = Math.floor(Math.random() * 2) + startDay;
-      var startTime;
-      var endTime;
-      if (eventType === 0) {
-        startTime = new Date(
-          Date.UTC(
-            date.getUTCFullYear(),
-            date.getUTCMonth(),
-            date.getUTCDate() + startDay
-          )
-        );
-        if (endDay === startDay) {
-          endDay += 1;
-        }
-        endTime = new Date(
-          Date.UTC(
-            date.getUTCFullYear(),
-            date.getUTCMonth(),
-            date.getUTCDate() + endDay
-          )
-        );
-        events.push({
-          title: 'All Day - ' + i,
-          startTime: startTime,
-          endTime: endTime,
-          allDay: true,
-        });
-      } else {
-        var startMinute = Math.floor(Math.random() * 24 * 60);
-        var endMinute = Math.floor(Math.random() * 180) + startMinute;
-        startTime = new Date(
-          date.getFullYear(),
-          date.getMonth(),
-          date.getDate() + startDay,
-          0,
-          date.getMinutes() + startMinute
-        );
-        endTime = new Date(
-          date.getFullYear(),
-          date.getMonth(),
-          date.getDate() + endDay,
-          0,
-          date.getMinutes() + endMinute
-        );
-        events.push({
-          title: 'Event - ' + i,
-          startTime: startTime,
-          endTime: endTime,
-          allDay: false,
-        });
-      }
-    }
-    return events;
-  }
-
-  onRangeChanged(ev: any) {
-    console.log(
-      'range changed: startTime: ' + ev.startTime + ', endTime: ' + ev.endTime
-    );
-    this.eventSource = this.createRandomEvents();
   }
 
   onDayHeaderSelected = (ev: {
@@ -254,9 +174,15 @@ export class HomePage  {
     this.myCalendar.slidePrev();
   }
 
-  addEvent(){
-    
-  }
+  addEvent() {
+  this.eventSource.push({
+    title: this.newEvent.title,
+    startTime: new Date(this.newEvent.startTime),
+    endTime: new Date(this.newEvent.endTime),
+    description: this.newEvent.description
+  });
+  this.showHideForm();
+}
 
   showHideForm() {
     this.showAddEvent = !this.showAddEvent;

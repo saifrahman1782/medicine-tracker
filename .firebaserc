@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "medicine-tracker-834fd": {
+      "hosting": {
+        "app": [
+          "medicine-tracker-834fd"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "medicine-tracker-834fd"
+  }
+}
