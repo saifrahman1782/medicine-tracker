@@ -8,24 +8,30 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { AppsStoreModule } from 'src/store/AppStoreModule';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    LoadingComponent
+  ],
   imports: [
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    ...AppsStoreModule,
+    StoreDevtoolsModule.instrument({maxAge: 25}),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideDatabase(() => getDatabase()),
     BrowserModule, IonicModule.forRoot(), 
-    AppRoutingModule, provideFirebaseApp(() => initializeApp(environment.firebase)), 
-    provideAuth(() => getAuth()), 
-    provideDatabase(() => getDatabase()), 
-    provideFirestore(() => getFirestore())],
+    AppRoutingModule,
+  ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
