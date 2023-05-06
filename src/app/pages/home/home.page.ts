@@ -3,7 +3,6 @@ import { CalendarComponent } from 'ionic2-calendar';
 import { CalendarMode, QueryMode, Step } from 'ionic2-calendar';
 import { ModalController } from '@ionic/angular';
 import { EventsPage } from 'src/app/pages/events/events.page';
-import { Firestore } from '@angular/fire/firestore';
 
 
 
@@ -18,7 +17,7 @@ export class HomePage {
   showAddEvent: boolean;
   @ViewChild(CalendarComponent) myCalendar!: CalendarComponent;
 
-  constructor(public modalCtrl: ModalController, private db: Firestore) {
+  constructor(public modalCtrl: ModalController) {
     this.showAddEvent = false;
     this.isToday = false;
   }
