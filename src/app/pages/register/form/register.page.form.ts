@@ -1,4 +1,5 @@
 import { FormBuilder, FormGroup, ValidatorFn, Validators } from "@angular/forms";
+import { findAddressNumber, findAddress, findCity, findCounty, findPostCode } from "src/app/utils/address-utils";
 
 export class RegisterPageForm {
 
@@ -19,6 +20,7 @@ export class RegisterPageForm {
             telephoneNumber: ['', Validators.required],
             address: this.formBuilder.group({
                 Address: ['', Validators.required],
+                number: ['', Validators.required],
                 postCode: ['', Validators.required],
                 city: ['', Validators.required],
                 county: ['', Validators.required]
@@ -28,6 +30,16 @@ export class RegisterPageForm {
         form.get('confirmPassword')!.setValidators(matchPasswordAndConfirmPassword(form));
 
         return form;
+    }
+
+    setAddress(place: any) {
+        const addressForm = this.form.get('address');
+
+        addressForm?.get('Address')?.setValue(findAddress(place.address_components));
+        addressForm?.get('number')?.setValue(findAddressNumber(place.address_components));
+        addressForm?.get('postCode')?.setValue(findPostCode(place.address_components));
+        addressForm?.get('city')?.setValue(findCity(place.address_components));
+        addressForm?.get('county')?.setValue(findCounty(place.address_components));
     }
 
     getForm() : FormGroup {

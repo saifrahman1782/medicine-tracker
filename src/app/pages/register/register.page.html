@@ -59,25 +59,31 @@
     <ion-card-content formGroupName="address">
       <ion-item>
         <ion-label position="floating">Address</ion-label>
-        <ion-input type="text" formControlName="Address"></ion-input>
+        <ion-input type="text" formControlName="Address" #autocomplete></ion-input>
       </ion-item>
       <app-error [field]="registerForm.getForm().get('address')!.get('Address')!" error="required" message="*Address is required"></app-error>
 
       <ion-item>
+        <ion-label position="floating">Door Number</ion-label>
+        <ion-input type="text" formControlName="number" ></ion-input>
+      </ion-item>
+      <app-error [field]="registerForm.getForm().get('address')!.get('Address')!" error="required" message="*Door number is required"></app-error>
+
+      <ion-item>
         <ion-label position="floating">Post code</ion-label>
-        <ion-input type="text" formControlName="postCode"></ion-input>
+        <ion-input type="text" formControlName="postCode" ></ion-input>
       </ion-item>
       <app-error [field]="registerForm.getForm().get('address')!.get('postCode')!" error="required" message="*Post code is required"></app-error>
       
       <ion-item>
         <ion-label position="floating">City</ion-label>
-        <ion-input type="text" formControlName="city"></ion-input>
+        <ion-input type="text" formControlName="city" ></ion-input>
       </ion-item>
       <app-error [field]="registerForm.getForm().get('address')!.get('city')!" error="required" message="*City is required"></app-error>
 
       <ion-item>
         <ion-label position="floating">County</ion-label>
-        <ion-input type="text" formControlName="county"></ion-input>
+        <ion-input type="text" formControlName="county" ></ion-input>
       </ion-item>
       <app-error [field]="registerForm.getForm().get('address')!.get('county')!" error="required" message="*county is required"></app-error>
 

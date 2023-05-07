@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy,  ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { RegisterPageForm } from './form/register.page.form';
 import { FormBuilder } from '@angular/forms';
@@ -7,9 +7,11 @@ import { AppState } from 'src/store/AppState';
 import { register } from 'src/store/register/register.actions';
 import { RegisterState } from 'src/store/register/RegisterState';
 import { hide, show } from 'src/store/loading/loading.actions';
-import { ToastController } from '@ionic/angular';
+import { IonInput, ToastController } from '@ionic/angular';
 import { login } from 'src/store/login/login.actions';
 import { Subscription } from 'rxjs';
+
+declare var google: any;
 
 @Component({
   selector: 'app-register',
@@ -18,11 +20,13 @@ import { Subscription } from 'rxjs';
 })
 export class RegisterPage implements OnInit, OnDestroy {
 
+  @ViewChild('autocomplete') autocomplete: IonInput;
+
   registerForm: RegisterPageForm;
 
   registerStateSubscription: Subscription;
 
-  constructor(private formBuilder: FormBuilder, private store: Store<AppState>,
+  constructor(private router: Router, private formBuilder: FormBuilder, private store: Store<AppState>,
     private toastController: ToastController) { }
 
   ngOnInit() {
@@ -35,8 +39,17 @@ export class RegisterPage implements OnInit, OnDestroy {
     this.registerStateSubscription.unsubscribe;
   }
 
+  ionViewDidEnter() {
+    this.autocomplete.getInputElement().then((ref :any) => {
+      const autocomplete = new google.maps.places.Autocomplete(ref);  
+      autocomplete.addListener('place_changed', () => {
+        this.registerForm.setAddress(autocomplete.getPlace())
+      })
+    })
+  }
+
   login() {
-    //this.router.navigate(['login']);
+    this.router.navigate(['login']);
   }
 
   register() {
