@@ -1,4 +1,5 @@
 <ion-content>
+
 <ion-header>
   <ion-toolbar color="tertiary">
     <ion-button color="dark" slot="start" fill="clear" (click)="login()">
@@ -8,6 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
+  <form [formGroup]="registerForm.getForm()">
   <ion-card>
     <ion-card-header>
       <ion-card-title>Contact</ion-card-title>
@@ -16,24 +18,36 @@
     <ion-card-content>
       <ion-item>
         <ion-label position="floating">Name</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" formControlName="name"></ion-input>
       </ion-item>
+      <app-error [field]="registerForm.getForm().get('name')!" error="required" message="*Name is required"></app-error>
+
       <ion-item>
         <ion-label position="floating">Email</ion-label>
-        <ion-input type="email"></ion-input>
+        <ion-input type="email" formControlName="email"></ion-input>
       </ion-item>
+      <app-error [field]="registerForm.getForm().get('email')!" error="required" message="*Email is required"></app-error>
+      <app-error [field]="registerForm.getForm().get('email')!" error="email" message="*Email is Invalid"></app-error>
+
       <ion-item>
         <ion-label position="floating">Password</ion-label>
-        <ion-input type="password"></ion-input>
+        <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
+      <app-error [field]="registerForm.getForm().get('password')!" error="required" message="*Password is required"></app-error>
+      <app-error [field]="registerForm.getForm().get('password')!" error="minlength" message="*minimum of 6 characters"></app-error>
+
       <ion-item>
         <ion-label position="floating">Confirm password</ion-label>
-        <ion-input type="password"></ion-input>
+        <ion-input type="password" formControlName="confirmPassword"></ion-input>
       </ion-item>
+      <app-error [field]="registerForm.getForm().get('confirmPassword')!" error="isntMatching" message="*Passwords do not match"></app-error>
+
       <ion-item>
         <ion-label position="floating">Telephone number</ion-label>
-        <ion-input type="tel"></ion-input>
+        <ion-input type="tel" formControlName="telephoneNumber"></ion-input>
       </ion-item>
+      <app-error [field]="registerForm.getForm().get('telephoneNumber')!" error="required" message="*telephone number is required"></app-error>
+
     </ion-card-content>
   </ion-card>
 
@@ -42,26 +56,35 @@
       <ion-card-title>Address information</ion-card-title>
     </ion-card-header>
   
-    <ion-card-content>
+    <ion-card-content formGroupName="address">
       <ion-item>
         <ion-label position="floating">Address</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" formControlName="Address"></ion-input>
       </ion-item>
+      <app-error [field]="registerForm.getForm().get('address')!.get('Address')!" error="required" message="*Address is required"></app-error>
+
       <ion-item>
         <ion-label position="floating">Post code</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" formControlName="postCode"></ion-input>
       </ion-item>
+      <app-error [field]="registerForm.getForm().get('address')!.get('postCode')!" error="required" message="*Post code is required"></app-error>
+      
       <ion-item>
         <ion-label position="floating">City</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" formControlName="city"></ion-input>
       </ion-item>
+      <app-error [field]="registerForm.getForm().get('address')!.get('city')!" error="required" message="*City is required"></app-error>
+
       <ion-item>
         <ion-label position="floating">County</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" formControlName="county"></ion-input>
       </ion-item>
+      <app-error [field]="registerForm.getForm().get('address')!.get('county')!" error="required" message="*county is required"></app-error>
+
     </ion-card-content>
   </ion-card>
 
-  <ion-button size="full" color="light" size="full" (click)="login()">Register</ion-button>
+  <ion-button size="full" color="light" size="full" (click)="register()">Register</ion-button>
+  </form>
 
 </ion-content>
