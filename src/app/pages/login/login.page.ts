@@ -51,8 +51,15 @@ export class LoginPage implements OnInit, OnDestroy {
     }
   }
 
-  private onIsLoggedIn(loginState: LoginState) {
+  private async onIsLoggedIn(loginState: LoginState) {
     if (loginState.isLoggedIn) {
+      const toaster = await this.toastController.create({
+        position: "bottom",
+        message: "Logged In!",
+        color: "secondary",
+        duration: 3000
+      });
+      toaster.present();
       this.navController.navigateRoot('home');
     }
   }

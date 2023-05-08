@@ -19,19 +19,19 @@
 
   <div *ngIf="showAddEvent" class="ion-padding">
     <ion-item>
-      <ion-label><b>Title:</b></ion-label>
-      <ion-input type="text" [(ngModel)]="newEvent.title" placeholder="Title"></ion-input>
+      <ion-label><b>Medicine:</b></ion-label>
+      <ion-input type="text" [(ngModel)]="newEvent.title" placeholder="Medicine"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label><b>Description:</b></ion-label>
-      <ion-input type="text" placeholder="Description" [(ngModel)]="newEvent.description"></ion-input>
+      <ion-label><b>Dosage:</b></ion-label>
+      <ion-input type="text" placeholder="Dosage" [(ngModel)]="newEvent.description"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label><b>Start Time :</b></ion-label>
+      <ion-label><b>Time Consumed :</b></ion-label>
       <ion-input type="datetime-local" [(ngModel)]="newEvent.startTime" placeholder="Start Time"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label><b>End Time :</b></ion-label>
+      <ion-label><b>End Time:</b></ion-label>
       <ion-input type="datetime-local" [(ngModel)]="newEvent.endTime" placeholder="End Time"></ion-input>
     </ion-item>
     <ion-button color="tertiary" expand="block" (click)="addEvent()">Add Event</ion-button>

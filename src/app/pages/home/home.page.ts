@@ -4,9 +4,6 @@ import { CalendarMode, QueryMode, Step } from 'ionic2-calendar';
 import { ModalController } from '@ionic/angular';
 import { EventsPage } from 'src/app/pages/events/events.page';
 
-
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -17,7 +14,7 @@ export class HomePage {
   showAddEvent: boolean;
   @ViewChild(CalendarComponent) myCalendar!: CalendarComponent;
 
-  constructor(public modalCtrl: ModalController) {
+  constructor(public modalCtrl: ModalController ) {
     this.showAddEvent = false;
     this.isToday = false;
   }
@@ -174,14 +171,16 @@ export class HomePage {
   }
 
   addEvent() {
-  this.eventSource.push({
-    title: this.newEvent.title,
-    startTime: new Date(this.newEvent.startTime),
-    endTime: new Date(this.newEvent.endTime),
-    description: this.newEvent.description
-  });
-  this.showHideForm();
-}
+    this.eventSource.push({
+      title: this.newEvent.title,
+      startTime: new Date(this.newEvent.startTime),
+      endTime: new Date(this.newEvent.endTime),
+      description: this.newEvent.description
+    });
+    this.showHideForm();
+  }
+  
+  
 
   showHideForm() {
     this.showAddEvent = !this.showAddEvent;

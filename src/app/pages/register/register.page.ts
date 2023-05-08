@@ -10,6 +10,7 @@ import { hide, show } from 'src/store/loading/loading.actions';
 import { IonInput, ToastController } from '@ionic/angular';
 import { login } from 'src/store/login/login.actions';
 import { Subscription } from 'rxjs';
+import { collection } from 'firebase/firestore';
 
 declare var google: any;
 
