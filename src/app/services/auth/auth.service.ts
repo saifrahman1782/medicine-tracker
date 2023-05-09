@@ -7,6 +7,7 @@ import * as firebase from 'firebase/compat/app';
 import { UserRegister } from 'src/app/model/user/UserRegister';
 
 
+
 @Injectable({
   providedIn: 'root'
 })

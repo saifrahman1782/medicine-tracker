@@ -3,6 +3,9 @@ import { CalendarComponent } from 'ionic2-calendar';
 import { CalendarMode, QueryMode, Step } from 'ionic2-calendar';
 import { ModalController } from '@ionic/angular';
 import { EventsPage } from 'src/app/pages/events/events.page';
+import { LocalNotifications, LocalNotificationSchema } from '@capacitor/local-notifications';
+
+
 
 @Component({
   selector: 'app-home',
@@ -14,7 +17,7 @@ export class HomePage {
   showAddEvent: boolean;
   @ViewChild(CalendarComponent) myCalendar!: CalendarComponent;
 
-  constructor(public modalCtrl: ModalController ) {
+  constructor(public modalCtrl: ModalController) {
     this.showAddEvent = false;
     this.isToday = false;
   }
@@ -170,18 +173,42 @@ export class HomePage {
     this.myCalendar.slidePrev();
   }
 
+  async sendNotification(event: any) {
+    const now = new Date().getTime();
+    const endTime = new Date(event.endTime).getTime();
+    const timeDiff = endTime - now;
+  
+    if (timeDiff > 0 && timeDiff <= 60000) {
+      const notification: LocalNotificationSchema = {
+        title: 'Dosage period over!',
+        body: 'feel free to take your next dosage',
+        id: 1,
+        schedule: { at: new Date(Date.now() + 1000) },
+        sound: 'default',
+        attachments: [],
+        actionTypeId: 'SOME_ACTION',
+        extra: null
+      };
+  
+      await LocalNotifications.schedule({ notifications: [notification] });
+    }
+  }
+  
+  
+
   addEvent() {
     this.eventSource.push({
       title: this.newEvent.title,
       startTime: new Date(this.newEvent.startTime),
       endTime: new Date(this.newEvent.endTime),
-      description: this.newEvent.description
+      description: this.newEvent.description,
     });
+  
+    this.sendNotification(this.newEvent);
+  
     this.showHideForm();
   }
   
-  
-
   showHideForm() {
     this.showAddEvent = !this.showAddEvent;
     this.newEvent = {
